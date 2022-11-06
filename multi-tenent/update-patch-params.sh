@@ -56,6 +56,7 @@ gitcommitpush() {
       return 0
     else 
       sleep $((MINWAIT+RANDOM % (MAXWAIT-MINWAIT)))
+      git config pull.rebase true
       git pull
     fi
   done
