@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: spinnaker
+    app.kubernetes.io/name: sampleapp
+  name: srini-testscript
+  namespace: default
+spec:
+  template:
+    metadata:
+      labels:
+        job-name: srini-testscript
+    spec:
+      containers:
+      - command: ["sleep","infinity"]
+        image: python:3
+        imagePullPolicy: IfNotPresent
+        name: executescript
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /opt/script
+          name: script
+        - mountPath: /tmp/tenents
+          name: tenents
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: tenents-script-argo
+        name: script
+      - configMap:
+          defaultMode: 420
+          name: tenents-multi-argo
+        name: tenents

@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: multi-tenent-kust-
+spec:
+  backoffLimit: 2
+  template:
+    spec:
+      containers:
+        - args:
+            - sleep 30; python3 /opt/script/multi-tenent.py
+          command:
+            - /bin/sh
+            - '-c'
+          image: 'quay.io/opsmxpublic/python3base:v1'
+          name: executescript
+          volumeMounts:
+            - mountPath: /opt/script
+              name: script
+            - mountPath: /tmp/tenents
+              name: tenents
+      restartPolicy: Never
+      volumes:
+        - configMap:
+            name: tenents-script-argo
+          name: script
+        - configMap:
+            name: tenents-multi-argo
+          name: tenents
+
