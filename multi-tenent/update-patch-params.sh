@@ -50,12 +50,13 @@ gitcommitpush() {
   for i in {1..10}
   do
     echo "Trying $i times"
-    git push --force
+    git push 
     if [ $? == 0 ]
     then
       return 0
     else 
       sleep $((MINWAIT+RANDOM % (MAXWAIT-MINWAIT)))
+      git pull
     fi
   done
   echo 'Failed to push changes'
