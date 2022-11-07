@@ -1,8 +1,8 @@
 # Format
 # tenent-name:enabled,git-repo,directory,param1=hello,param2=2345,param3=myimage:latest
 
-tenent1:true,tenents-process-argo-manifests,tenent1dir,param1=banana,param2=7345,param3=tenent1-image:new
-tenent2:false,tenents-process-argo-manifests,tenent2dir,param1=pear,param2=7442,param3=tenent2-image:new
-tenent3:true,tenents-process-argo-manifests,tenent3dir,param1=santra,param2=7533,param3=tenent3-image:new
-tenent4:true,tenents-process-argo-manifests,tenent4dir,param1=santra,param2=8533,param3=tenent4-image:new
+tenent1:true,tenents-process-argo-manifests,tenent1dir,param1=banana,param2=3345,param3=tenent1-image:new
+tenent2:true,tenents-process-argo-manifests,tenent2dir,param1=pear,param2=3442,param3=tenent2-image:new
+tenent3:true,tenents-process-argo-manifests,tenent3dir,param1=santra,param2=3533,param3=tenent3-image:new
+tenent4:true,tenents-process-argo-manifests,tenent4dir,param1=santra,param2=3533,param3=tenent4-image:new
 
