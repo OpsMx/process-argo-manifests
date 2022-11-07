@@ -1,0 +1,148 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: byos-
+  labels:
+    app: byos
+  namespace: '${parameters.namespace}'
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      containers:
+        - args:
+            - >-
+              set -x
+
+              for env in $( echo ${trigger.payload.params } | tr "," "\n" )
+
+              do
+
+              echo export $env >> /tmp/environment
+
+              done
+
+              for filename in /secret/* 
+
+              do 
+
+              variable=$(echo $filename | sed 's#/# #g' | awk '{print $2}')
+
+              echo setting env $variable for $filename 
+
+              echo export "$variable"=$(cat "$filename") >> /tmp/environment
+
+              done
+
+              echo export SOURCE_REPO_PATH=${trigger.payload.gitRepo } >>
+              /tmp/environment
+
+              echo export git_user=${parameters.username} >> /tmp/environment
+
+              echo export SOURCE_ORG=${parameters.orgname} >> /tmp/environment
+
+              echo export SOURCE_BRANCH=${parameters.branch} >> /tmp/environment
+
+              echo export SOURCE_PATH=${trigger.payload.gitPath } >>
+              /tmp/environment
+
+
+              source /tmp/environment
+
+              cd /repo
+
+              cp -r * /tmp
+
+              cd /tmp/
+
+              chmod +x /tmp/"$path"
+
+              /tmp/"$path"
+          command:
+            - /bin/bash
+            - '-x'
+            - '-c'
+          env:
+            - name: path
+              value: '${parameters.path}'
+            - name: envs
+              value: '${parameters.envs}'
+          image: '${parameters.scriptimage}'
+          name: script
+          volumeMounts:
+            - mountPath: /repo
+              name: repo-volume
+            - mountPath: /secret
+              name: secret-volume
+      initContainers:
+        - args:
+            - >-
+
+              for secret in $(echo $secrets | sed "s/,/ /g")
+
+              do
+
+              echo getting $secret
+
+              kubectl -n "$ns" get secret "$secret" || { echo "failed getting
+              secret $secret" ; exit 1; }
+
+              kubectl -n "$ns" get secret "$secret" -o jsonpath='{.data.*}' |
+              base64 -d > /secret/"$secret" 
+
+              ls -ltr /secret/"$secret"
+
+
+
+              done
+          command:
+            - /bin/bash
+            - +x
+            - '-c'
+          env:
+            - name: ns
+              value: '${parameters.namespace}'
+            - name: secrets
+              value: '${parameters.secretname}'
+          image: 'bitnami/kubectl:1.22'
+          name: kube
+          volumeMounts:
+            - mountPath: /secret
+              name: secret-volume
+        - args:
+            - >-
+
+              ls -ltr /secret/gitoken || { echo "failed cloning $url" ; exit 1;
+              }
+
+              git clone https://"$username":"$(cat /secret/gitoken)"@"$url" -b
+              "$branch" /repo 
+
+              ls -lrt /repo
+          command:
+            - /bin/sh
+            - +x
+            - '-c'
+          env:
+            - name: username
+              value: '${parameters.username}'
+            - name: url
+              value: '${parameters.url}'
+            - name: branch
+              value: '${parameters.branch}'
+          image: >-
+            quay.io/opsmxpublic/opsmx-custom-binaries:kubectl-spin-cli-git-bash-jq-yq-helm
+          name: git
+          volumeMounts:
+            - mountPath: /secret
+              name: secret-volume
+            - mountPath: /repo
+              name: repo-volume
+      restartPolicy: Never
+      serviceAccountName: default
+      volumes:
+        - emptyDir: {}
+          name: secret-volume
+        - emptyDir: {}
+          name: repo-volume
+
