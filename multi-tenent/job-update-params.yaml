@@ -1,9 +1,9 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  generateName: byos-
+  generateName: multi-tenent-
   labels:
-    app: byos
+    app: multi-tenent
   namespace: '${parameters.namespace}'
 spec:
   backoffLimit: 0
