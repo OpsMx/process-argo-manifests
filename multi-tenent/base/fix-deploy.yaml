@@ -3,9 +3,10 @@ kind: Deployment
 metadata:
   name: app
 spec:
-  spec:
-    containers:
+  template:
+    spec:
+      containers:
       - name: "oooo"
         ports:
-          - name: http
-            containerPort: "9911"
+        - name: http
+          containerPort: "9911"
