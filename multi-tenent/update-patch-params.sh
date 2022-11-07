@@ -67,8 +67,8 @@ gitcommitpush() {
 
 set -x
 DIR=multi-tenent/base
-yq e  -i .spec.spec.containers[0].name=\"$param1\" $DIR/fix-deploy.yaml 
-yq e  -i .spec.spec.containers[0].ports[0].containerPort=\"$param2\" $DIR/fix-deploy.yaml 
+yq e  -i .spec.template.spec.containers[0].name=\"$param1\" $DIR/fix-deploy.yaml 
+yq e  -i .spec.template.spec.containers[0].ports[0].containerPort=\"$param2\" $DIR/fix-deploy.yaml 
 kustomize build $DIR  > /tmp/environment.yml
 ## git checkin the file
 SOURCE_API=github.com
