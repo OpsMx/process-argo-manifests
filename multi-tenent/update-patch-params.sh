@@ -58,6 +58,7 @@ gitcommitpush() {
       sleep $((MINWAIT+RANDOM % (MAXWAIT-MINWAIT)))
       git config pull.rebase true
       git pull
+      cp /tmp/environment.yml /tmp/$SOURCE_REPO_PATH/$SOURCE_PATH
     fi
   done
   echo 'Failed to push changes'
