@@ -66,7 +66,7 @@ gitcommitpush() {
 }
 
 set -x
-DIR=base
+DIR=$SOURCE_PATH/base
 yq e  -i .spec.spec.containers[0].name=\"$param1\" $DIR/fix-deploy.yaml 
 yq e  -i .spec.spec.containers[0].ports[0].containerPort=\"$param2\" $DIR/fix-deploy.yaml 
 kustomize build $DIR  > /tmp/environment.yml
