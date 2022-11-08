@@ -10,4 +10,4 @@ spec:
         image: tenent1-image:tag
         ports:
         - name: http
-          containerPort: "9911"
+          containerPort: 9911
