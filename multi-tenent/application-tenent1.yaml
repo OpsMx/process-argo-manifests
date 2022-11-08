@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tenent1
+spec:
+  destination:
+    name: in-cluster
+    namespace: argo-tenent
+    server: ''
+  source:
+    path: tenent1
+    repoURL: 'https://github.com/OpsMx/tenents-process-argo-manifests.git'
+    targetRevision: HEAD
+  project: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true
