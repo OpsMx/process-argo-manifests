@@ -13,8 +13,8 @@ spec:
     spec:
       containers:
       - name: app
-        image: nginx:1.16.1
+        image: alpine
         ports:
         - name: http
-          containerPort: 8080
-          protocol: TCP
+          containerPort: 80
+        command: ["tail", "-f", "/dev/null"]
