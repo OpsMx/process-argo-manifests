@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: foo/bar:latest
+        image: paulbouwer/hello-kubernetes:latest
         ports:
         - name: http
           containerPort: 8080
