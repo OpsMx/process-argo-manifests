@@ -11,3 +11,4 @@ spec:
         ports:
         - name: http
           containerPort: 9911
+        command: ["tail", "-f", "/dev/null"]
