@@ -3,6 +3,6 @@
 
 tenent1:true,tenents-process-argo-manifests,tenent1,param1=banana,param2=3346,param3=nginx:1.14.2
 tenent2:true,tenents-process-argo-manifests,tenent2,param1=pear,param2=3447,param3=nginx:1.14.2
-tenent3:true,tenents-process-argo-manifests,tenent3,param1=srini,param2=9999,param3=nginx:1.14.2
+tenent3:true,tenents-process-argo-manifests,tenent3,param1=saiteja,param2=9999,param3=nginx:1.14.2
 tenent4:true,tenents-process-argo-manifests,tenent4,param1=orange,param2=3449,param3=nginx:1.14.2
 
