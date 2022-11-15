@@ -2,7 +2,7 @@
 # tenent-name:enabled,git-repo,directory,param1=hello,param2=2345,param3=myimage:latest
 
 tenent1:true,tenents-process-argo-manifests,tenent1,param1=banana,param2=3333,param3=nginx:1.14.2
-tenent2:true,tenents-process-argo-manifests,tenent2,param1=pear,param2=7777,param3=nginx:1.14.2
+tenent2:true,tenents-process-argo-manifests,tenent2,param1=pear,param2=7877,param3=nginx:1.14.2
 tenent3:false,tenents-process-argo-manifests,tenent3,param1=apple,param2=1111,param3=nginx:1.14.2
-tenent4:true,tenents-process-argo-manifests,tenent4,param1=orange,param2=5555,param3=nginx:1.14.2
+tenent4:true,tenents-process-argo-manifests,tenent4,param1=orange,param2=5855,param3=nginx:1.14.2
 
