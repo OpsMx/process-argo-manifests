@@ -65,8 +65,6 @@ spec:
           env:
             - name: path
               value: '${parameters.path}'
-            - name: envs
-              value: '${parameters.envs}'
           image: '${parameters.scriptimage}'
           name: script
           volumeMounts:
